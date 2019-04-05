@@ -1,0 +1,31 @@
+{
+  "name": "nmrtc-jax-wx-pubsub",
+  "version": "1.0.0",
+  "description": "node.js mqtt ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NHJAX/nmrtc-jax-wx-pub-sub.git"
+  },
+  "author": "NMRTC-Jax",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/NHJAX/nmrtc-jax-wx-pub-sub/issues"
+  },
+  "homepage": "https://github.com/NHJAX/nmrtc-jax-wx-pub-sub#readme",
+  "dependencies": {
+    "express": "^4.16.4",
+    "file-system": "^2.2.2",
+    "firebase": "^5.9.3",
+    "lodash": "^4.17.11",
+    "mosca": "^2.8.3",
+    "mqtt": "^2.18.8",
+    "mqtt-server": "^0.1.0",
+    "net": "^1.0.2",
+    "should": "^13.2.3",
+    "socket.io": "^2.2.0"
+  }
+}
