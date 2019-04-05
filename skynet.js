@@ -18,7 +18,7 @@ var settings = { //Server settings
 // Set the configuration for your app
   // TODO: Replace with your project's config object
   // var config = {
-  //     apiKey: "AIzaSyCdzMDnYJwquw1yIyQv2G77yy2uDFJkY8s",
+  //     apiKey: "Your APIKEY",
   //     authDomain: "pubsub-demo-d0e04.firebaseapp.com",
   //     databaseURL: "https://pubsub-demo-d0e04.firebaseio.com",
   //     projectId: "pubsub-demo-d0e04",
