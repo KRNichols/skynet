@@ -5,6 +5,7 @@ var mqtt = require('mqtt'); //MQTT Imported
 var client  = mqtt.connect('mqtt://localhost');//IP of the machine which the server is hosted
 var SECURE_KEY = __dirname + '/tls-key.pem'; //Location of secure key
 var SECURE_CERT = __dirname + '/tls-cert.pem'; //Location of Secure Cert
+var firebase = require("firebase"); //Load Firebase Package
 
 var settings = { //Server settings
   secure : {
@@ -15,20 +16,13 @@ var settings = { //Server settings
   }
 };
 
-// Set the configuration for your app
-  // TODO: Replace with your project's config object
-  // var config = {
-  //     apiKey: "Your APIKEY",
-  //     authDomain: "pubsub-demo-d0e04.firebaseapp.com",
-  //     databaseURL: "https://pubsub-demo-d0e04.firebaseio.com",
-  //     projectId: "pubsub-demo-d0e04",
-  //     storageBucket: "pubsub-demo-d0e04.appspot.com",
-  //     messagingSenderId: "289834859012"
-  //   };
-  //   firebase.initializeApp(config);
-  //
-  // // Get a reference to the database service
-  // var database = firebase.database();
+firebase.initializeApp({ //by adding your credentials, you get authorized to read and write from the database
+  serviceAccount: "./blah-blah-89dbe-firebase-adminsdk-3tlno-0c1e5ae18a.json",
+  databaseURL: "https://blah-blah-89dbe.firebaseio.com/"
+});
+
+var db = firebase.database();
+var ref = db.ref("/MQTTmessage");
 
 //Server Setup
 var server = new mosca.Server(settings);
@@ -60,12 +54,24 @@ server.on('clientConnected', function(client) { //A worker has been detected and
          if (client) {
            var buf = (Buffer.from(packet.payload)); //Buffer is dumped from packet
            let msg = (buf.toString()); //Buffer is converted to string
-           //console.log(msg);
-           callFIREBASE(msg);}
-
-         })
+           console.log("Message from MQTT ", msg);
+           /**
+           * Pushing New Value
+           * in the Database Object
+           */
+           ref.push({
+               id:0,
+               date:Date.now(),
+               Message:msg,
+           });
+           /**
+           * Reading Value from
+           * Firebase Data Object
+           */
+           ref.once("value", function(snapshot) {
+             var data = snapshot.val();   //Data is in JSON format.
+             console.log("Message published to cloud database ", data);
+           });
+         };
 });
-
-function callFIREBASE(msg){
-  console.log("from FIREBASE CALL" msg);
-};
+});
